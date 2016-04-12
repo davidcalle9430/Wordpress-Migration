@@ -12,3 +12,10 @@ db:
     MYSQL_ROOT_PASSWORD: root
   ports:
     - 3306:3306
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    environment:
+     - PMA_ARBITRARY=1
+    ports:
+     - 8080:80
