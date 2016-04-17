@@ -1,21 +1,26 @@
+db:
+  build: ./MySQL/
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+  ports:
+    - 3306:3306
 wordpress:
   build: ./WordPress/
   ports:
     - 80:80
   environment:
-    WORDPRESS_DB_HOST: 172.17.0.1
+    WORDPRESS_DB_HOST: db
     WORDPRESS_DB_USER: root
     WORDPRESS_DB_PASSWORD: root
-db:
-  build: ./MariaDB/
-  environment:
-    MYSQL_ROOT_PASSWORD: root
-  ports:
-    - 3306:3306
+  links:
+    - db
 phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: myadmin
     environment:
-     - PMA_ARBITRARY=1
+     PMA_HOST: db
+     PMA_PORT: 3306
     ports:
      - 8080:80
+    links:
+      - db
